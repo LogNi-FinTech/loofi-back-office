@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MfsProductApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MfsProductApplication.class, args);
-		System.out.println("kjarsrtt");
+		System.out.println("Project started");
 	}
 }
