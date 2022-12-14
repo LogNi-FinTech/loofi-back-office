@@ -43,6 +43,7 @@ public class Webconfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				.antMatchers(HttpMethod.POST,"/api/registration").hasAnyRole("MAKER")
 				.antMatchers(HttpMethod.GET, "/api/ledger-transaction").hasAnyRole("CHECKER", "MAKER")
 				.antMatchers(HttpMethod.GET, "/api/registration").hasAnyRole("CHECKER", "MAKER")
+				.antMatchers(HttpMethod.GET, "/api/registration/customerid/**").hasAnyRole("MAKER")
 				//.antMatchers(HttpMethod.GET, "/api/mfs-ledger-transaction/maker").hasAnyRole("")
 				.antMatchers(HttpMethod.POST, "/api/ledger-transaction/change-status").hasAnyRole("CHECKER")
 				.antMatchers(HttpMethod.PUT, "/api/registration/update/status").hasAnyRole("CHECKER")

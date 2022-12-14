@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface RegistrationRepository extends JpaRepository<Registration, Integer> {
     @Query("SELECT res FROM Registration res WHERE id=:registrationId")
     Registration getRegistrationUserById(@Param("registrationId") Long registrationId);
-
     Boolean existsById(Long id);
+
+    Boolean existsByCustomerId(Long id);
 }

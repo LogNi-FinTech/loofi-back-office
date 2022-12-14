@@ -18,16 +18,16 @@ public class Registration extends Auditable<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String firstName;
     private String lastName;
     private String idNumber; // NID, passport, driving licence
     @Enumerated(EnumType.STRING)
     private IdType idType;
 
-    private String customerId;
+    private Long customerId;
     private String mobileNo;
     private String email;
+    private String accountNumber;
 
     private String area;
     private String region;

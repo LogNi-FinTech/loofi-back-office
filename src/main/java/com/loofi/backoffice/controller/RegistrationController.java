@@ -28,13 +28,16 @@ public class RegistrationController {
         return registrationService.saveMultipleRegistration(registrationList);
     }
 
-    @PutMapping("/update/status")
+    @PostMapping("/update/status")
     Registration updateRegistrationStatus(@RequestBody Registration registration){
         return registrationService.updateRegistrationStatus(registration);
     }
-
     @GetMapping
     List<Registration> getRegistrationList(){
         return registrationRepository.findAll();
+    }
+    @GetMapping("/customerid/{customerId}")
+    boolean findByCustomerId(@PathVariable(value = "customerId") Long customerId){
+        return registrationRepository.existsByCustomerId(customerId);
     }
 }
