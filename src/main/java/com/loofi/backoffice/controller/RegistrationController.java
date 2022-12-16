@@ -23,7 +23,7 @@ public class RegistrationController {
         return registrationRepository.save(registration);
     }
 
-    @PostMapping("/multiple-registration")
+    @PostMapping("/bulk")
     boolean saveMultipleRegistration(@RequestBody List<Registration> registrationList){
         return registrationService.saveMultipleRegistration(registrationList);
     }
@@ -36,8 +36,8 @@ public class RegistrationController {
     List<Registration> getRegistrationList(){
         return registrationRepository.findAll();
     }
-    @GetMapping("/customerid/{customerId}")
-    boolean findByCustomerId(@PathVariable(value = "customerId") Long customerId){
-        return registrationRepository.existsByCustomerId(customerId);
+    @GetMapping("/identifier/{identifier}")
+    boolean findByIdentifier(@PathVariable(value = "identifier") String identifier){
+        return registrationRepository.existsByIdentifier(identifier);
     }
 }

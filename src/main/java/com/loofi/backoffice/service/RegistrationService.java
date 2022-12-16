@@ -61,7 +61,7 @@ public class RegistrationService {
         Customer cus = new Customer();
         cus.setName(reg.getFirstName());
         cus.setCustomerId(reg.getCustomerId().toString());
-        cus.setIdentifier(reg.getAccountNumber());
+        cus.setIdentifier(reg.getIdentifier());
         cus.setState("ACTIVE");
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(cus, headers);

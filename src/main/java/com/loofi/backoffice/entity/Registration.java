@@ -21,6 +21,7 @@ public class Registration extends Auditable<String>{
     private String firstName;
     private String lastName;
     private String idNumber; // NID, passport, driving licence
+    private String identifier;
     @Enumerated(EnumType.STRING)
     private IdType idType;
 

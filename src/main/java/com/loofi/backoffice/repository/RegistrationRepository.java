@@ -11,4 +11,5 @@ public interface RegistrationRepository extends JpaRepository<Registration, Inte
     Boolean existsById(Long id);
 
     Boolean existsByCustomerId(Long id);
+    Boolean existsByIdentifier(String identifier);
 }
