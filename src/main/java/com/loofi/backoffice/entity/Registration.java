@@ -20,7 +20,9 @@ public class Registration extends Auditable<String>{
     private Long id;
     private String firstName;
     private String lastName;
-    private String idNumber; // NID, passport, driving licence
+    @Column(unique=true)
+    private String idNumber;
+    @Column(unique=true)// NID, passport, driving licence
     private String identifier;
     @Enumerated(EnumType.STRING)
     private IdType idType;
