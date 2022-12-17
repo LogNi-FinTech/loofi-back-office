@@ -26,6 +26,7 @@ public class Registration extends Auditable<String>{
     private String identifier;
     @Enumerated(EnumType.STRING)
     private IdType idType;
+    private String alternativeAccountNumber;
 
     private Long customerId;
     private String mobileNo;
