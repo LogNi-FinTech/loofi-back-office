@@ -29,13 +29,13 @@ public class RegistrationService {
 
     public Registration updateRegistrationStatus(Registration registration) {
         if(registrationRepository.existsById(registration.getId())){
-            Registration reg = registrationRepository.getRegistrationUserById(registration.getId());
-            Long customerId = saveRegistrationToCustomerKycService(reg);
-            reg.setStatus(registration.getStatus());
-            reg.setLastModifiedBy(registration.getLastModifiedBy());
-            reg.setCustomerId(customerId);
-            updateDataOnCustomerService(reg);
-            return registrationRepository.save(reg);
+            Registration userRegistration = registrationRepository.getRegistrationUserById(registration.getId());
+            Long customerId = saveRegistrationToCustomerKycService(userRegistration);
+            userRegistration.setStatus(registration.getStatus());
+            userRegistration.setLastModifiedBy(registration.getLastModifiedBy());
+            userRegistration.setCustomerId(customerId);
+            updateDataOnCustomerService(userRegistration);
+            return registrationRepository.save(userRegistration);
         }
         throw new CommonException(
                 MfsProductErrors.getErrorCode(MfsProductErrors.MFSPRODUCT_MANAGEMENT, MfsProductErrors.REGISTRATION_USER_NOT_FOUND),
@@ -50,7 +50,6 @@ public class RegistrationService {
                 HttpMethod.POST,
                 requestEntity,
                 Long.class);
-        System.out.println("after" + responseCustomerId.getBody());
         return responseCustomerId.getBody();
     }
 
@@ -58,13 +57,13 @@ public class RegistrationService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Customer cus = new Customer();
-        cus.setName(reg.getFirstName());
-        cus.setCustomerId(reg.getCustomerId().toString());
-        cus.setIdentifier(reg.getIdentifier());
-        cus.setState("ACTIVE");
+        Customer customer = new Customer();
+        customer.setName(reg.getFirstName());
+        customer.setCustomerId(reg.getCustomerId().toString());
+        customer.setIdentifier(reg.getIdentifier());
+        customer.setState("ACTIVE");
 
-        HttpEntity<Object> requestEntity = new HttpEntity<>(cus, headers);
+        HttpEntity<Object> requestEntity = new HttpEntity<>(customer, headers);
         ResponseEntity<Void> responseCustomerId = restTemplate.exchange(accountServiceBaseUrl + "api/v1/account/customer",
                 HttpMethod.POST,
                 requestEntity,
@@ -73,9 +72,21 @@ public class RegistrationService {
     }
 
     public boolean saveMultipleRegistration(List<Registration> registrationList) {
-        for (Registration reg: registrationList){
-            registrationRepository.save(reg);
+        for (Registration registration: registrationList){
+            registrationRepository.save(registration);
         }
         return true;
+    }
+
+    public Registration save(Registration registration) {
+        return registrationRepository.save(registration);
+    }
+
+    public List<Registration> getRegistrationList() {
+        return registrationRepository.findAll();
+    }
+
+    public boolean existsByIdentifier(String identifier) {
+        return registrationRepository.existsByIdentifier(identifier);
     }
 }

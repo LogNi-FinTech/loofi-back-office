@@ -20,7 +20,7 @@ public class RegistrationController {
 
     @PostMapping
     Registration saveRegistration(@RequestBody Registration registration){
-        return registrationRepository.save(registration);
+        return registrationService.save(registration);
     }
 
     @PostMapping("/bulk")
@@ -28,16 +28,16 @@ public class RegistrationController {
         return registrationService.saveMultipleRegistration(registrationList);
     }
 
-    @PostMapping("/update/status")
+    @PutMapping("/status")
     Registration updateRegistrationStatus(@RequestBody Registration registration){
         return registrationService.updateRegistrationStatus(registration);
     }
     @GetMapping
     List<Registration> getRegistrationList(){
-        return registrationRepository.findAll();
+        return registrationService.getRegistrationList();
     }
     @GetMapping("/identifier/{identifier}")
     boolean findByIdentifier(@PathVariable(value = "identifier") String identifier){
-        return registrationRepository.existsByIdentifier(identifier);
+        return registrationService.existsByIdentifier(identifier);
     }
 }
